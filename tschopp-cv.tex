@@ -1,0 +1,170 @@
+% =====================================================================
+%  Academic CV -- Mark Tschopp, PhD
+%
+%  This CV is assembled from small, per-section files in src/, pulled in
+%  by the \include lines near the bottom of this file. The main file you
+%  are reading holds only the setup (packages, styling, toggles) and the
+%  running order of the sections.
+%
+%  To reuse this as a template: keep this file's structure, edit the
+%  contact block, and replace the content in each src/*.tex section.
+%
+%  Build:  pdflatex tschopp-cv.tex   (run it twice so cross-references
+%          and clickable links resolve on the second pass)
+% =====================================================================
+
+% The "res" class does the heavy lifting of resume/CV layout. Options:
+%   line   -- draw a horizontal rule beneath each \section heading
+%   margin -- set section titles out in the left margin
+%   10pt   -- base font size
+\documentclass[line,margin,10pt]{res}
+
+\title{CV}
+
+% Page geometry. Negative side margins plus a wide text block pull the
+% content toward the page edges, so a dense CV fits more per page.
+\oddsidemargin -.5in
+\evensidemargin -.5in
+\textwidth=6.0in
+\itemsep=0in
+\parsep=0in
+
+% Two custom list styles used throughout the section files:
+%   list1 -- top-level bullets, drawn as an open square (\ding{113})
+%   list2 -- nested bullets, drawn as a filled dot
+% The \setlength{...}{0in} calls squeeze out the default vertical
+% spacing so the lists stay tight and compact.
+\newenvironment{list1}{
+	\begin{list}{\ding{113}}{
+		\setlength{\itemsep}{0in}
+		\setlength{\parsep}{0in} \setlength{\parskip}{0in}
+		\setlength{\topsep}{0in} \setlength{\partopsep}{0in}
+		\setlength{\leftmargin}{0.17in}}}
+		{\end{list}}
+
+\newenvironment{list2}{
+	\begin{list}{$\bullet$}{
+		\setlength{\itemsep}{0in}
+		\setlength{\parsep}{0in}
+		\setlength{\parskip}{0in}
+		\setlength{\topsep}{0in}
+		\setlength{\partopsep}{0in}
+		\setlength{\leftmargin}{0.2in}}}
+		{\end{list}}
+
+% hyperref turns emails, DOIs, and profile links into clickable links in
+% the PDF (and colors them). pdfpages can embed external PDF pages;
+% etoolbox provides the on/off \newtoggle switch used just below.
+\usepackage[pdfcenterwindow, pdfnewwindow, pdfpagelayout=SinglePage, pdftitle={Mark Tschopp CV},
+  pagebackref, pdfpagemode=UseNone, colorlinks=true, linkcolor=blue, citecolor=black,
+  filecolor=black, urlcolor=blue, hyperindex=false]{hyperref}
+\usepackage{pdfpages}
+\usepackage{etoolbox}
+
+% A toggle is a named on/off switch. Flip this to \togglefalse to drop
+% the Bio section without deleting it -- convenient for tailoring the CV
+% to different audiences. (See where it is used, below.)
+\newtoggle{includebio}
+\toggletrue{includebio}
+
+\begin{document}
+
+% --- Continuous numbering across included sections --------------------
+% Numbered lists (publications, presentations, ...) use the cvlist
+% environment below instead of a bare enumerate. A plain enumerate
+% restarts at 1 every time; cvlist instead carries its numbering forward
+% from one list to the next -- even across separate \include'd files --
+% so, for example, journals, book chapters, patents, conference papers,
+% and reports share one running sequence.
+%
+% To begin a fresh sequence at 1, call \restartnumbering in the section
+% list below (you'll see it before Press, Presentations, and Short
+% Courses). Keeping that control in the main file -- rather than buried
+% inside the section files -- makes the numbering easy to follow.
+\newcounter{enumi_saved}
+\newcommand{\restartnumbering}{\setcounter{enumi_saved}{0}}
+\newenvironment{cvlist}%
+  {\begin{enumerate}\setcounter{enumi}{\value{enumi_saved}}}%
+  {\setcounter{enumi_saved}{\value{enumi}}\end{enumerate}}
+
+% \name prints the large header name; the next line restyles that font.
+\name{Mark A Tschopp, PhD \vspace*{.1in}}
+\renewcommand{\namefont}{\LARGE\fontsize{16}{30}\selectfont\scshape}
+
+% Everything between \begin{resume} and \end{resume} is the CV body.
+\begin{resume}
+
+% A two-column contact block. Within each row, "&" separates the left
+% and right columns and "\\" ends the row. Edit these lines for your
+% own affiliation, links, and contact details.
+\section{\sc Contact Information}
+\vspace{.05in}
+\begin{ncolumn}{2}
+ DEVCOM Army Research Laboratory (ARL)  & Distinguished R\&D Scientist, ARL Fellow \\
+ ARL Central, Chicago, IL               & Citations: $>$9000 (\href{http://scholar.google.com/citations?user=dg2m2WsAAAAJ&hl=en}{Google Scholar}) \\
+ \href{https://www.linkedin.com/in/mark-tschopp/}{LinkedIn} $\cdot$ \href{http://orcid.org/0000-0001-8471-5035}{ORCID}
+                                        & \textit{h}-index: 51 (\href{http://scholar.google.com/citations?user=dg2m2WsAAAAJ&hl=en}{Google Scholar}, \href{https://www.researchgate.net/profile/Mark_Tschopp}{ResearchGate}) \\
+ \href{https://marktschopp.github.io}{marktschopp.github.io} & {\it Email:} mark.a.tschopp.civ@army.mil \\
+\end{ncolumn}
+
+% This entire block prints only when the includebio toggle is true.
+% \iftoggle{name}{ ...printed if true... }{ ...printed if false... }
+\iftoggle{includebio}{
+\section{\sc Bio}
+\textbf{Experienced senior S\&T leader with technical expertise in artificial intelligence, machine learning, materials science and solid mechanics with a proven track record of advancing organizational impact through AI/ML, data science, and business intelligence---grounded in scientific expertise and strategic leadership.}  I serve as a Senior S\&T Leader, Research Scientist, and Fellow at the Army Research Laboratory, where I drive foundational research and strategic initiatives to shape the future Army. With over two decades of experience across government, academia, and industry, I bring a record of scientific excellence, cross-sector collaboration, and organizational leadership.  As a senior leader, I founded ARL Central, expanding ARL's national footprint by growing the researcher base from zero to 30+, launching new partnerships and centers, and expanding \$40M+/yr in research programs. I now lead the Army AI Innovation Institute, defining its technical direction and long-term strategy to advance future AI at scale for Army priorities.  On the scientific front, I have authored 100+ peer-reviewed publications with 9,000+ citations and have delivered 250+ talks, including 180+ invited seminars. My honors include the ASM International Silver Medal, Fellow of ASME and ASM International, and ARL Fellow, as well as multiple awards for leadership, mentoring, communication, and scientific impact.
+}{}
+
+% By default \include starts each file on a new page. Redefining
+% \clearpage to do nothing lets the sections flow continuously instead,
+% which keeps the CV compact rather than one-section-per-page.
+\let\clearpage\relax
+
+% ---- The CV itself: one \include per section file in src/. ----
+% Reorder these lines to reorder the CV; comment a line out to hide a
+% section. \restartnumbering (see the numbering note above) starts a new
+% numbered sequence: publications form one sequence, while press,
+% presentations, and short courses each begin their own.
+\include{src/01-education}
+\include{src/02-employment}
+
+\include{src/03-honors-awards}
+
+\include{src/04-accomplishments-leadership}
+\include{src/05-accomplishments-top10}
+
+% Publications: journals, theses/book chapters/patents, conference
+% papers, and technical reports all share one running sequence.
+\restartnumbering
+\include{src/06-journals}
+\include{src/07-theses-books-patents}
+\include{src/08-conference-papers}
+\include{src/09-reports}
+
+% Popular & trade press -- its own numbering sequence.
+\restartnumbering
+\include{src/10-press}
+
+% Presentations -- one continuous sequence.
+\restartnumbering
+\include{src/11-presentations}
+
+% Short courses -- its own numbering sequence.
+\restartnumbering
+\include{src/12-short-courses}
+\include{src/13-teaching}
+
+\include{src/14-advising-mentoring}
+
+\include{src/15-research-programs}
+\include{src/16-service}
+
+
+\section{\sc Hobbies}
+NCAA Georgia Tech Men's Volleyball
+\begin{list2}
+\item Starting Outside Hitter, Men's Volleyball Team at Georgia Tech
+\item $9^{th}$ Place 2004 Nationals Division 1-AA
+\end{list2}
+
+\end{resume}
+\end{document}

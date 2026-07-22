@@ -33,6 +33,20 @@ Output: `tschopp-cv.pdf`.
 
 Tailoring the CV for a specific purpose is as simple as commenting or uncommenting `\include{}` lines in the main file — each section is self-contained, so you can reorder or drop sections without touching the rest.
 
+## The comment layer
+
+One reason I keep my CV in LaTeX: everything after a `%` is invisible in the compiled PDF but travels with the source. That turns the comments into a **private annotation track running alongside the public record** — a place to keep the logistics behind each line that would never belong on a CV you hand to someone else.
+
+A few things worth tracking there:
+
+- **Publications** — the full lifecycle of each paper: submitted → reviews back → revision resubmitted → accepted → online. Over time this shows how long each *journal* actually takes.
+- **Reviewing** — the public CV lists the journals you review for; the comments can hold which manuscript, when, and what you recommended. (Keep real review records private — reviewer confidentiality.)
+- **Proposals** — submitted vs. funded, including the ones that didn't land and a note on why.
+
+To make the layer more than notes, this template uses a small **greppable tag convention** — `@pub`, `@review`, `@proposal` with `key=value` fields — so the comments double as a dataset you can parse later (e.g., median time-to-acceptance by journal, or proposal hit rate). See the tagged examples in `src/06-journals.tex`, `src/15-research-programs.tex`, and `src/16-service.tex`.
+
+> **The examples in this public repo are entirely fictional.** The real annotations live only in my private copy — which is rather the point.
+
 ## A note on reuse
 
 The formatting and structure are free to reuse under the [MIT License](LICENSE). The *content* — my education, publications, and so on — is mine; swap in your own.

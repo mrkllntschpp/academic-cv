@@ -4,6 +4,10 @@ The LaTeX source for my academic CV — and a reusable template, if you'd like t
 
 📄 **[Download the compiled PDF](tschopp-cv.pdf)** &nbsp;·&nbsp; 🌐 **[marktschopp.github.io](https://marktschopp.github.io)**
 
+<p align="center">
+  <a href="tschopp-cv.pdf"><img src="assets/cv-preview.png" alt="First page of the compiled CV" width="480"></a>
+</p>
+
 ## Why this is public
 
 People occasionally ask how I format my CV, so here's the full source. It's built on the classic `res` LaTeX class with a modular structure I've refined over the years — one file per section, assembled by a short main document. Borrow the format, the section layout, or the whole thing as a starting point for your own.

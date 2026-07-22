@@ -1,0 +1,46 @@
+name: Build CV
+
+# Rebuild the compiled PDF (and the README preview image) whenever the
+# LaTeX source changes, and commit the refreshed artifacts back to the
+# repo so tschopp-cv.pdf never drifts out of sync with the source.
+#
+# The paths filter below is limited to source files, so the artifact-only
+# commit this workflow makes does not re-trigger it (no build loop).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.tex"
+      - "**.cls"
+      - "**.sty"
+      - ".github/workflows/build-cv.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile CV (res.cls is bundled in the repo root)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: tschopp-cv.tex
+          latexmk_use_xelatex: false
+
+      - name: Regenerate page-1 preview
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          pdftoppm -png -f 1 -l 1 -singlefile -scale-to 1100 tschopp-cv.pdf assets/cv-preview
+
+      - name: Commit refreshed PDF and preview
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild CV PDF and preview [skip ci]"
+          file_pattern: tschopp-cv.pdf assets/cv-preview.png
